@@ -1,5 +1,5 @@
-import messagesServices from "../services/messages.services";
-import { gpt } from "../config/gpt/bot.configuration";
+import messagesServices from "../services/messages.services.js";
+import { gpt } from "../config/gpt/bot.configuration.js";
 
 export const createMessage = async (req, res) => {
   try {
@@ -14,8 +14,6 @@ export const createMessage = async (req, res) => {
     await user.save();
 
     const gptResponse = await gpt(message);
-
-    console.log("SOY LO QUE RESPONDE GPT", gptResponse);
 
     const gptMessage = await messagesServices.createMessage({
       text: gptResponse,

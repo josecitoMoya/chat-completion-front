@@ -1,4 +1,4 @@
-import MessageModel from "../models/Messages.model";
+import MessageModel from "../models/Messages.model.js";
 
 const messagesServices = {};
 

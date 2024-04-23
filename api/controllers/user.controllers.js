@@ -1,3 +1,5 @@
+import { deleteCookies } from "../config/middleware/auth.js";
+import { generateToken } from "../config/token/tokens.js";
 import userServices from "../services/user.services.js";
 
 export const createUser = async (req, res) => {
@@ -14,8 +16,7 @@ export const createUser = async (req, res) => {
 
     res.send(newUser);
   } catch (error) {
-    console.log(error);
-    throw new Error(error);
+    console.error(error);
   }
 };
 
@@ -35,19 +36,18 @@ export const userLogin = async (req, res) => {
       return res.status(401).send("Invalid email or password");
     }
 
-    //respuesta para el token
-    res.send(user.name);
+    const token = generateToken(user);
+
+    res.cookie("gptToken", token).send(user.name);
   } catch (error) {
-    throw new Error(error);
+    console.error(error);
   }
 };
 
-// export const userLogOut = async (req, res) => {
-//   try {
-//     const token = await req.cookies.token;
-
-//     res.clearCookies(token).sendStatus(200);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
+export const userLogout = async (req, res) => {
+  try {
+    deleteCookies();
+  } catch (error) {
+    console.error(error);
+  }
+};

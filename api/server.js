@@ -3,6 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 
 import "dotenv/config";
+
 import connectionDB from "./data-base/db.js";
 import { router } from "./routes/index.js";
 
@@ -19,8 +20,10 @@ server.use(express.json());
 //   })
 // );
 
+const { SERVER_PORT } = process.env;
+
 server.use("/api", router);
 connectionDB();
-server.listen(3001, async () => {
-  console.log("listening at port 3001");
+server.listen(SERVER_PORT, async () => {
+  console.log(`Server is listening at port ${SERVER_PORT}`);
 });

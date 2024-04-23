@@ -1,13 +1,11 @@
 import OpenAI from "openai";
-import dotenv from "dotenv";
+import "dotenv/config";
 
-dotenv.config();
-
-const GPT_API_KEY = process.env.GPT_API_KEY;
+const { GPT_API_KEY, GPT_ORGANIZATION } = process.env;
 
 const openai = new OpenAI({
   apiKey: GPT_API_KEY,
-  organization: "org-FAEzrElfgpvgzviJ0u2Fm0WM",
+  organization: GPT_ORGANIZATION,
 });
 
 export const gpt = async (text) => {
@@ -18,7 +16,6 @@ export const gpt = async (text) => {
     });
     return completion.choices[0].message;
   } catch (error) {
-    console.log(error);
-    throw new Error(error);
+    console.error(error);
   }
 };
