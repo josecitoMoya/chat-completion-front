@@ -12,13 +12,13 @@ server.use(morgan("dev"));
 
 server.use(express.json());
 
-// server.use(
-//   cors({
-//     origin: "localhost",
-//     credentials: true,
-//     methods: ["GET", "POST", "DELETE", "PUT"],
-//   })
-// );
+server.use(
+  cors({
+    origin: "localhost",
+    credentials: true,
+    methods: ["GET", "POST", "DELETE", "PUT"],
+  })
+);
 
 const { SERVER_PORT } = process.env;
 
