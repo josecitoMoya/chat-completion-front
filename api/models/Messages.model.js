@@ -1,14 +1,13 @@
 import mongoose from "mongoose";
 
 const Message = new mongoose.Schema({
-  text: {
+  role: {
     type: String,
     required: true,
   },
-  sender: {
+  content: {
     type: String,
-    enum: ["user", "bot"],
-    default: "bot",
+    required: true,
   },
   createdAt: {
     type: Date,

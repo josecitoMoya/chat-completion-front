@@ -1,28 +1,37 @@
-import messagesServices from "../services/messages.services";
-import { gpt } from "../config/gpt/bot.configuration";
+import messagesServices from "../services/messages.services.js";
+import userServices from "../services/user.services.js";
+import { gpt } from "../config/gpt/gpt.configuration.js";
 
 export const createMessage = async (req, res) => {
   try {
-    const { message, user } = req.body;
+    const { message, email } = req.body;
+
+    const user = await userServices.findUserByEmail(email);
+
+    if (!user) {
+      res.sendStatus(401);
+    }
 
     const userMessage = await messagesServices.createMessage({
-      text: message,
-      sender: user,
+      content: message,
+      role: user.name,
     });
 
-    user.messages.push(userMessage);
+    user.messages.push({
+      content: userMessage.content,
+      role: userMessage.role,
+    });
+
     await user.save();
 
     const gptResponse = await gpt(message);
 
-    console.log("SOY LO QUE RESPONDE GPT", gptResponse);
-
     const gptMessage = await messagesServices.createMessage({
-      text: gptResponse,
-      sender: "gpt",
+      content: gptResponse.content,
+      role: gptResponse.role,
     });
 
-    user.message.push(gptMessage);
+    user.messages.push(gptMessage);
     await user.save();
 
     res.status(200).json({ message: gptResponse });
@@ -30,6 +39,14 @@ export const createMessage = async (req, res) => {
     console.error(error);
   }
 };
+
+// export const getAllMessages = async (req, res) => {
+//   try {
+//     const userMessages = await messagesServices.getMessages()
+//   } catch (error) {
+
+//   }
+// }
 
 // export const chat = async (req, res) => {
 //   try {
