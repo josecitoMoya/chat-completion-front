@@ -1,4 +1,4 @@
-import { UserModel } from "../models/User.model.js";
+import UserModel from "../models/User.model.js";
 
 const userServices = {};
 
@@ -7,26 +7,30 @@ userServices.createUser = async (userData) => {
     const newUser = await UserModel.create(userData);
 
     await newUser.save();
+
+    return { name: newUser.name, email: newUser.email };
   } catch (error) {
-    throw new Error(error);
+    console.error(error);
   }
 };
 
-userServices.findUser = async (userData) => {
+userServices.findUserByEmail = async (email) => {
   try {
-    const findedUser = await UserModel.findOne({ userData });
+    const findedUser = await UserModel.findOne({ email });
     return findedUser;
   } catch (error) {
     throw new Error(error);
   }
 };
 
-userServices.validatePassword = async (userData, userPassword) => {
+userServices.validateUserPassword = async (email, password) => {
   try {
-    const validated = await userData.validatePassword(userPassword);
+    const validated = await email.validatePassword(password);
 
     return validated;
   } catch (error) {
     throw new Error(error);
   }
 };
+
+export default userServices;
