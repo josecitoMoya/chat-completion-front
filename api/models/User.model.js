@@ -31,10 +31,11 @@ const User = new mongoose.Schema({
   },
   messages: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Message",
+      type: mongoose.Schema.Types.Object,
+      default: {},
     },
   ],
+
   salt: {
     type: String,
   },

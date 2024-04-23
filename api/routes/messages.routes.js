@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { chat } from "../controllers/messages.controllers.js";
+import { createMessage } from "../controllers/messages.controllers.js";
 
 export const messages = Router();
 
-bot.post("/message", chat);
+messages.post("/message", createMessage);
