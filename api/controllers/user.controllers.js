@@ -4,30 +4,39 @@ export const createUser = async (req, res) => {
   try {
     const userData = req.body;
 
-    const findedUser = await userServices.findedUser(userData);
+    const findedUser = await userServices.findUserByEmail(userData.email);
 
     if (findedUser) {
       res.send({ message: "User or email allready registred" });
     }
 
     const newUser = await userServices.createUser(userData);
+
     res.send(newUser);
   } catch (error) {
+    console.log(error);
     throw new Error(error);
   }
 };
 
 export const userLogin = async (req, res) => {
   try {
-    const userData = req.body;
+    const { email, password } = req.body;
 
-    const userLoggedIn = await userServices.loginUser(userData);
+    const user = await userServices.findUserByEmail(email);
 
-    if (!userLoggedIn.user) {
-      return res.sendStatus(401);
+    if (!user) {
+      return res.status(401).send("Invalid email or password");
     }
 
-    res.send(userLoggedIn);
+    const isValid = await userServices.validateUserPassword(user, password);
+
+    if (!isValid) {
+      return res.status(401).send("Invalid email or password");
+    }
+
+    //respuesta para el token
+    res.send(user.name);
   } catch (error) {
     throw new Error(error);
   }
