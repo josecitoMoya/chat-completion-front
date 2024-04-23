@@ -25,12 +25,18 @@ const User = new mongoose.Schema({
       "The password must have 8 characters and 1 capital letter",
     ],
   },
-  salt: {
-    type: String,
-  },
   name: {
     type: String,
     required: true,
+  },
+  messages: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+    },
+  ],
+  salt: {
+    type: String,
   },
 });
 

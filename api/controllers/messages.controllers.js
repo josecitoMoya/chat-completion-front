@@ -1,4 +1,5 @@
 import messagesServices from "../services/messages.services";
+import { gpt } from "../config/gpt/bot.configuration";
 
 export const createMessage = async (req, res) => {
   try {
@@ -11,6 +12,20 @@ export const createMessage = async (req, res) => {
 
     user.messages.push(userMessage);
     await user.save();
+
+    const gptResponse = await gpt(message);
+
+    console.log("SOY LO QUE RESPONDE GPT", gptResponse);
+
+    const gptMessage = await messagesServices.createMessage({
+      text: gptResponse,
+      sender: "gpt",
+    });
+
+    user.message.push(gptMessage);
+    await user.save();
+
+    res.status(200).json({ message: gptResponse });
   } catch (error) {
     console.error(error);
   }
