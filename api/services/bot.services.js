@@ -13,12 +13,11 @@ const openai = new OpenAI({
 export const gpt = async (text) => {
   console.log("ESTOY POR PREGUNTAR", text);
   try {
-    const completion = await openai.chat.completions.create({
-      messages: [{ role: "user", content: text }],
-      model: "gpt-3.5-turbo",
-    });
-
-    return completion.choices[0];
+    // const completion = await openai.chat.completions.create({
+    //   messages: [{ role: "user", content: text }],
+    //   model: "gpt-3.5-turbo",
+    // });
+    // return completion.choices[0];
   } catch (error) {
     console.log(error);
     throw new Error(error);
