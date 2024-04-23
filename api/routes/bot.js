@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { gpt } from "../services/bot.services.js";
+import { chat } from "../controllers/bot.controllers.js";
 
 const router = Router();
 
-router.post("/test", gpt);
+router.post("/test", chat);
 
 export default router;
