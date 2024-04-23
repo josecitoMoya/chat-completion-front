@@ -4,7 +4,7 @@ import "dotenv/config";
 const { JWT_SECRET, JWT_EXPIRATION } = process.env;
 
 export const generateToken = (userData) => {
-  const { name, email } = userData.user.dataValues;
+  const { name, email } = userData;
   return jwt.sign({ name, email }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
 };
 
