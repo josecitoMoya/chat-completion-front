@@ -6,10 +6,11 @@ import "dotenv/config";
 
 import connectionDB from "./data-base/db.js";
 import { router } from "./routes/index.js";
+import cookieParser from "cookie-parser";
 
 const server = express();
 server.use(morgan("dev"));
-
+server.use(cookieParser());
 server.use(express.json());
 
 server.use(
