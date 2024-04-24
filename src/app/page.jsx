@@ -1,9 +1,9 @@
-import Mainlogo from "@/assets/logo/Mainlogo";
+"use client";
 
 export default function Home() {
   return (
     <main>
-      <Mainlogo />
+      <h1>Estas en home</h1>
     </main>
   );
 }
