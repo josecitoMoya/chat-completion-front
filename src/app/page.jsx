@@ -1,9 +1,11 @@
 "use client";
 
+import Signup from "./signup/page";
+
 export default function Home() {
   return (
     <main>
-      <h1>Estas en home</h1>
+      <Signup />
     </main>
   );
 }

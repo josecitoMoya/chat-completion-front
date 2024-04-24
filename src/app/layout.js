@@ -1,4 +1,5 @@
-import { Providers } from "./providers";
+import { ChakraProviders } from "./providers";
+import { Providers } from "@/store/provider";
 
 export const metadata = {
   title: "Chat Completion Challenge",
@@ -9,7 +10,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <ChakraProviders>{children}</ChakraProviders>
+        </Providers>
       </body>
     </html>
   );

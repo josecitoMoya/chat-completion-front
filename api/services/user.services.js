@@ -8,7 +8,11 @@ userServices.createUser = async (userData) => {
 
     await newUser.save();
 
-    return { name: newUser.name, email: newUser.email };
+    return {
+      message: "User created successfuly",
+      name: newUser.name,
+      email: newUser.email,
+    };
   } catch (error) {
     console.error(error);
   }

@@ -27,18 +27,22 @@ export const userLogin = async (req, res) => {
     const user = await userServices.findUserByEmail(email);
 
     if (!user) {
-      return res.status(401).send("Invalid email or password");
+      return res.send({ message: "Invalid email or password" });
     }
 
     const isValid = await userServices.validateUserPassword(user, password);
 
     if (!isValid) {
-      return res.status(401).send("Invalid email or password");
+      return res.send({ message: "Invalid email or password" });
     }
 
     const token = generateToken(user);
 
-    res.cookie("gptToken", token).send(user.name);
+    res.cookie("gptToken", token).send({
+      message: `Wellcome back ${user.name}`,
+      user: user.name,
+      data: user.messages,
+    });
   } catch (error) {
     console.error(error);
   }
