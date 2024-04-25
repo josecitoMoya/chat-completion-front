@@ -2,7 +2,7 @@ import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { useState } from "react";
 import MyButton from "./MyButton";
 
-const PasswordInput = ({
+const ChatInput = ({
   placeholder,
   size,
   height,
@@ -12,13 +12,13 @@ const PasswordInput = ({
   margin,
   overflow,
 }) => {
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
+  const [message, setMessage] = useState("");
+  const handleClick = () => setMessage();
   return (
     <div>
       <InputGroup size={"md"} justifyContent="space-between">
         <Input
-          type={show ? "text" : "password"}
+          type="text"
           placeholder={placeholder}
           size={size}
           height={height}
@@ -33,7 +33,7 @@ const PasswordInput = ({
             height="9"
             size="sm"
             onClick={handleClick}
-            placeholder={show ? "Hide" : "Show"}
+            placeholder="Send"
           ></MyButton>
         </InputRightElement>
       </InputGroup>
@@ -41,4 +41,4 @@ const PasswordInput = ({
   );
 };
 
-export default PasswordInput;
+export default ChatInput;
