@@ -87,7 +87,7 @@ export default function Signup() {
           textTransform="uppercase"
         >
           <Text fontSize="4xl" textAlign="center">
-            Crear cuenta
+            Signup{" "}
           </Text>
 
           <FormControl padding="30px">

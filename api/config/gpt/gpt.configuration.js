@@ -8,10 +8,10 @@ const openai = new OpenAI({
   organization: GPT_ORGANIZATION,
 });
 
-export const gpt = async (text) => {
+export const gpt = async (messages) => {
   try {
     const completion = await openai.chat.completions.create({
-      messages: [{ role: "user", content: text }],
+      messages,
       model: "gpt-3.5-turbo",
     });
     return completion.choices[0].message;
