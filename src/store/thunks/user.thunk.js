@@ -30,19 +30,18 @@ export const createUser = (data) => async (dispatch) => {
 export const loginUser = (data) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
-
     const userLogged = await axios.post(`${fetchUrl}/user/login`, data, {
       withCredentials: true,
     });
 
-    if (!userLogged.user) {
+    if (!userLogged.data.user) {
       dispatch(setIsLoading(false));
       return userLogged;
     }
 
     dispatch(setUser(userLogged.data));
     dispatch(setIsLoading(false));
-    return userLogged.user;
+    return userLogged.data;
   } catch (err) {
     console.error("Error login user", err);
     dispatch(setIsLoading(false));

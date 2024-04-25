@@ -41,28 +41,26 @@ export default function Login() {
         password: password.value,
       };
 
-      dispatch(loginUser(userData))
-        .then((res) => res.data)
-        .then((res) => {
-          if (res.user) {
-            toast({
-              position: "top",
-              title: res.message,
-              status: "success",
-              isClosable: true,
-              duration: 3000,
-            });
-            router.push("/about");
-          } else {
-            toast({
-              position: "top",
-              title: res.message,
-              status: "error",
-              isClosable: true,
-              duration: 3000,
-            });
-          }
-        });
+      dispatch(loginUser(userData)).then((res) => {
+        if (res.user) {
+          toast({
+            position: "top",
+            title: res.message,
+            status: "success",
+            isClosable: true,
+            duration: 3000,
+          });
+          router.push("/chat");
+        } else {
+          toast({
+            position: "top",
+            title: res.message,
+            status: "error",
+            isClosable: true,
+            duration: 3000,
+          });
+        }
+      });
     } catch (error) {
       console.error(error);
     }
