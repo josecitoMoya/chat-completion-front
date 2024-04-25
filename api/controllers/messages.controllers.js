@@ -45,23 +45,3 @@ export const createMessage = async (req, res) => {
     console.error(error);
   }
 };
-
-// export const getAllMessages = async (req, res) => {
-//   try {
-//     const userMessages = await messagesServices.getMessages()
-//   } catch (error) {
-
-//   }
-// }
-
-// export const chat = async (req, res) => {
-//   try {
-//     const text = req.body.message;
-
-//     const response = await gpt(text);
-
-//     res.send(response);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
