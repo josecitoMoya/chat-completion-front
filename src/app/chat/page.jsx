@@ -25,11 +25,13 @@ export default function Chat() {
         >
           <h1>Nav bar</h1>
         </Box>
-        <GridItem colSpan={4} bg="lightgrey" maxH="100%">
-          {cards.map((data, i) => (
-            <MiCard data={data} key={i} />
-          ))}
-        </GridItem>
+        <Box marginTop="20px" pt={45} pb={45}>
+          <GridItem colSpan={4} bg="lightgrey" maxH="100%">
+            {cards.map((data, i) => (
+              <MiCard data={data} key={i} />
+            ))}
+          </GridItem>
+        </Box>
         <Box
           position="fixed"
           bottom="0"
@@ -38,7 +40,7 @@ export default function Chat() {
           bg="whitesmoke"
           zIndex="999"
           border="3px"
-          h={50}
+          h="50px"
         >
           <ChatInput />
         </Box>
