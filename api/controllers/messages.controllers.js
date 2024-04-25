@@ -12,26 +12,32 @@ export const createMessage = async (req, res) => {
       res.sendStatus(401);
     }
 
+    const chat = user.messages;
+
     const userMessage = await messagesServices.createMessage({
+      role: "user",
       content: message,
-      role: user.name,
     });
 
-    user.messages.push({
-      content: userMessage.content,
+    chat.push({
       role: userMessage.role,
+      content: userMessage.content,
     });
 
     await user.save();
 
-    const gptResponse = await gpt(message);
+    const gptResponse = await gpt(chat);
 
     const gptMessage = await messagesServices.createMessage({
-      content: gptResponse.content,
       role: gptResponse.role,
+      content: gptResponse.content,
     });
 
-    user.messages.push(gptMessage);
+    chat.push({
+      role: gptResponse.role,
+      content: gptResponse.content,
+    });
+
     await user.save();
 
     res.status(200).json({ message: gptResponse });

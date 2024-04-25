@@ -86,7 +86,7 @@ export default function Login() {
           textTransform="uppercase"
         >
           <Text fontSize="4xl" textAlign="center">
-            Iniciar sesion!
+            Login
           </Text>
 
           <FormControl padding="30px">
@@ -116,7 +116,7 @@ export default function Login() {
 
               <MiButton
                 type="submit"
-                placeholder="Signup"
+                placeholder="Login"
                 onClick={handleSubmit}
               />
             </Stack>
