@@ -1,50 +1,106 @@
 "use client";
 
-import ChatInput from "@/common/ChatInput";
-import MiCard from "@/common/miCard";
-import { Box, Grid, GridItem, Wrap } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Avatar,
+  Heading,
+  Text,
+  FormControl,
+  Input,
+  IconButton,
+  Icon,
+  InputGroup,
+  InputRightElement,
+  Button,
+} from "@chakra-ui/react";
+
+import { RiSendPlaneFill } from "react-icons/ri";
+
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import MiMessage from "@/common/MiMessage";
 
-export default function Chat() {
-  const cards = useSelector((state) => state.user.user.data);
+const Chat = () => {
+  const user = useSelector((state) => state.user.user);
+  const [input, setInput] = useState("");
 
-  console.log("Estoy antes de cards", cards);
+  const message = user.data;
+
+  const sendMessage = () => {};
   return (
-    <Box>
-      <Grid h="200px" gap={4}>
-        <Box
-          position="fixed"
-          top="0"
-          left="0"
-          right="0"
-          bg="whitesmoke"
-          zIndex="999"
-          h="50px"
-          borderColor="black"
-          borderRadius="sm "
-        >
-          <h1>Nav bar</h1>
+    <Box
+      h="100vh"
+      display="flex"
+      flexDirection={"column"}
+      transition={"background-color 200ms"}
+    >
+      <Flex
+        align={"center"}
+        position={"sticky"}
+        top={0}
+        zIndex={19}
+        p={4}
+        h={"81px"}
+        borderBottom={"1px solid"}
+        transitionDuration={"200ms"}
+      >
+        <Avatar name={user.user} />
+        <Box ml={4} flex={1}>
+          <Heading as={"h3"} size={"lg"} />
+          <Text>{user.user}</Text>
         </Box>
-        <Box marginTop="20px" pt={45} pb={45}>
-          <GridItem colSpan={4} bg="lightgrey" maxH="100%">
-            {cards.map((data, i) => (
-              <MiCard data={data} key={i} />
-            ))}
-          </GridItem>
-        </Box>
-        <Box
-          position="fixed"
-          bottom="0"
-          left="0"
-          right="0"
-          bg="whitesmoke"
-          zIndex="999"
-          border="3px"
-          h="50px"
-        >
-          <ChatInput />
-        </Box>
-      </Grid>
+      </Flex>
+      <Box
+        id="msg-box"
+        p={6}
+        pb={0}
+        flex={1}
+        overflow={"scroll"}
+        className="invisible"
+      >
+        {message.map((data, i) => (
+          <MiMessage data={data} key={i} />
+        ))}
+      </Box>
+      <FormControl
+        p={2}
+        zIndex={3}
+        as={"form"}
+        display={"flex"}
+        alignItems={"center"}
+      >
+        <InputGroup size="md">
+          <Input
+            position={"sticky"}
+            bottom={0}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+          />
+          <InputRightElement width="4.5rem">
+            <IconButton
+              ml={2}
+              onClick={sendMessage}
+              icon={<Icon as={RiSendPlaneFill} />}
+              _focus={{ boxShadow: "none" }}
+              size={"md"}
+              isRound
+            />
+            <Button
+              hidden
+              disabled={!input}
+              type="submit"
+              onClick={sendMessage}
+            >
+              Send
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+      </FormControl>
     </Box>
   );
-}
+};
+
+export default Chat;
