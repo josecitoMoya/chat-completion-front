@@ -1,9 +1,11 @@
 import axios from "axios";
 
-const fetchUrl = "http://localhost:3001/api";
+import "dotenv/config";
+
+const { NEXT_PUBLIC_FETCHURL } = process.env;
 
 export const logout = () => {
-  const response = axios.post(`${fetchUrl}/user/logout`, {
+  const response = axios.post(`${NEXT_PUBLIC_FETCHURL}user/logout`, {
     withCredentials: true,
   });
 

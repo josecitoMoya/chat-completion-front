@@ -1,9 +1,11 @@
 import axios from "axios";
 
-const fetchUrl = "http://localhost:3001/api";
+import "dotenv/config";
+
+const { NEXT_PUBLIC_FETCHURL } = process.env;
 
 export const login = async (data) => {
-  const response = await axios.post(`${fetchUrl}/user/login`, data, {
+  const response = await axios.post(`${NEXT_PUBLIC_FETCHURL}user/login`, data, {
     withCredentials: true,
   });
 
