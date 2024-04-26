@@ -1,6 +1,7 @@
 import messagesServices from "../services/messages.services.js";
 import userServices from "../services/user.services.js";
 import { gpt } from "../config/gpt/gpt.configuration.js";
+import { validateToken } from "../config/token/tokens.js";
 
 export const createMessage = async (req, res) => {
   try {
@@ -40,7 +41,25 @@ export const createMessage = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: gptResponse });
+    res.status(200).json({ message: chat });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getMessages = async (req, res) => {
+  try {
+    const cookies = req.cookies;
+
+    const { email } = validateToken(cookies.gptToken);
+
+    const messages = await messagesServices.getMessages(email);
+
+    if (!messages) {
+      return res.sendStatus(401);
+    }
+
+    res.status(200).json(messages.messages);
   } catch (error) {
     console.error(error);
   }

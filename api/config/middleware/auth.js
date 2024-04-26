@@ -8,12 +8,9 @@ export const validateUser = (req, res, next) => {
 
     if (!payload) res.sendStatus(401);
 
+    req.user = payload;
     next();
   } catch (error) {
     console.error(error);
   }
-};
-
-export const deleteCookies = () => {
-  res.clearCookies();
 };

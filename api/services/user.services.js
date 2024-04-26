@@ -1,3 +1,4 @@
+import { validateToken } from "../config/token/tokens.js";
 import UserModel from "../models/User.model.js";
 
 const userServices = {};
@@ -36,5 +37,4 @@ userServices.validateUserPassword = async (email, password) => {
     throw new Error(error);
   }
 };
-
 export default userServices;

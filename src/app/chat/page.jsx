@@ -14,20 +14,62 @@ import {
   InputRightElement,
   Button,
 } from "@chakra-ui/react";
-
 import { RiSendPlaneFill } from "react-icons/ri";
 
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+
 import MiMessage from "@/common/MiMessage";
 
+import { useInput } from "@/hooks/useInput";
+import { setMessage } from "@/store/slices/messages.slice";
+import { persistence } from "@/services/persistence.service";
+import { setCurrenttUser, setUserMessages } from "@/store/slices/user.slice";
+import { getMessages } from "@/services/messages.services";
+import { logout } from "@/services/logout.service";
+
 const Chat = () => {
-  const user = useSelector((state) => state.user.user);
-  const [input, setInput] = useState("");
+  const user = useSelector((state) => state.user.currentUser?.name);
+  const messages = useSelector((state) => state.user?.userMessages);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const input = useInput();
 
-  const message = user.data;
+  useEffect(() => {
+    try {
+      persistence().then((token) => {
+        if (!token) return router.push("/login");
 
-  const sendMessage = () => {};
+        dispatch(setCurrenttUser(token.user));
+        dispatch(setUserMessages(token.messages));
+      });
+    } catch (error) {}
+  }, []);
+
+  const messageSender = async (e) => {
+    try {
+      e.preventDefault();
+
+      const delivery = {
+        message: input.value,
+        email: user.email,
+      };
+
+      const rta = dispatch(sendMessage(delivery)).then((res) =>
+        dispatch(setMessage(res.data)).then(() => router.push("/chat"))
+      );
+    } catch (err) {
+      console.error;
+    }
+  };
+
+  const handleLogout = async () => {
+    const closeSesion = await logout();
+
+    router.push("/");
+  };
+
   return (
     <Box
       h="100vh"
@@ -45,10 +87,14 @@ const Chat = () => {
         borderBottom={"1px solid"}
         transitionDuration={"200ms"}
       >
-        <Avatar name={user.user} />
+        <Avatar name={user} />
         <Box ml={4} flex={1}>
           <Heading as={"h3"} size={"lg"} />
-          <Text>{user.user}</Text>
+          <Button onClick={handleLogout}>Cerrar Sesion</Button>
+        </Box>
+        <Box ml={4} flex={1}>
+          <Heading as={"h3"} size={"lg"} />
+          <Text>{user}</Text>
         </Box>
       </Flex>
       <Box
@@ -59,7 +105,7 @@ const Chat = () => {
         overflow={"scroll"}
         className="invisible"
       >
-        {message.map((data, i) => (
+        {messages?.map((data, i) => (
           <MiMessage data={data} key={i} />
         ))}
       </Box>
@@ -71,18 +117,11 @@ const Chat = () => {
         alignItems={"center"}
       >
         <InputGroup size="md">
-          <Input
-            position={"sticky"}
-            bottom={0}
-            value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-            }}
-          />
+          <Input position={"sticky"} bottom={0} {...input} />
           <InputRightElement width="4.5rem">
             <IconButton
               ml={2}
-              onClick={sendMessage}
+              onClick={messageSender}
               icon={<Icon as={RiSendPlaneFill} />}
               _focus={{ boxShadow: "none" }}
               size={"md"}
@@ -92,10 +131,8 @@ const Chat = () => {
               hidden
               disabled={!input}
               type="submit"
-              onClick={sendMessage}
-            >
-              Send
-            </Button>
+              onClick={messageSender}
+            ></Button>
           </InputRightElement>
         </InputGroup>
       </FormControl>
