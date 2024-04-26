@@ -26,5 +26,5 @@ const { SERVER_PORT } = process.env;
 server.use("/api", router);
 connectionDB();
 server.listen(SERVER_PORT, async () => {
-  console.log(`Server is listening at port ${SERVER_PORT}`);
+  console.log(`Server is listening at port: ${SERVER_PORT}`);
 });
