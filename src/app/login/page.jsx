@@ -20,7 +20,11 @@ import { useState } from "react";
 import MiButton from "@/common/MyButton";
 
 import { useInput } from "@/hooks/useInput";
-import { loginUser } from "@/store/thunks/user.thunk";
+
+// import { getMessages } from "@/store/thunks/messages.thunk";
+import { login } from "@/services/login.services";
+import { setCurrenttUser, setUserMessages } from "@/store/slices/user.slice";
+import { setMessages } from "@/store/slices/messages.slice";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -33,34 +37,35 @@ export default function Login() {
   const handleClick = () => setShow(!show);
 
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
+    e.preventDefault();
 
+    try {
       const userData = {
         email: email.value,
         password: password.value,
       };
 
-      dispatch(loginUser(userData)).then((res) => {
-        if (res.user) {
-          toast({
-            position: "top",
-            title: res.message,
-            status: "success",
-            isClosable: true,
-            duration: 3000,
-          });
-          router.push("/chat");
-        } else {
-          toast({
-            position: "top",
-            title: res.message,
-            status: "error",
-            isClosable: true,
-            duration: 3000,
-          });
-        }
-      });
+      const user = await login(userData);
+
+      if (user.user) {
+        dispatch(setCurrenttUser(user.user));
+        toast({
+          position: "top",
+          title: `Wellcome back ${user.user}`,
+          status: "success",
+          isClosable: true,
+          duration: 3000,
+        });
+        router.push("/chat");
+      } else {
+        toast({
+          position: "top",
+          title: user.message,
+          status: "error",
+          isClosable: true,
+          duration: 3000,
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -87,7 +92,7 @@ export default function Login() {
             Login
           </Text>
 
-          <FormControl padding="30px">
+          <FormControl padding="30px" onSubmit={handleSubmit}>
             <Stack spacing="5">
               <InputGroup size="md">
                 <Input
@@ -116,6 +121,15 @@ export default function Login() {
                 type="submit"
                 placeholder="Login"
                 onClick={handleSubmit}
+              />
+              <Text fontSize={"sm"} textAlign={"center"}>
+                I don't hace an account
+              </Text>
+              <MiButton
+                placeholder="Signup"
+                onClick={() => {
+                  router.push("signup");
+                }}
               />
             </Stack>
           </FormControl>

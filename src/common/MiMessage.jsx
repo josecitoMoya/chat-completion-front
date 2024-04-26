@@ -1,9 +1,11 @@
+import Link from "next/link";
 import { useSelector } from "react-redux";
 
 const { Text, Box } = require("@chakra-ui/react");
 
 const MiMessage = ({ data }) => {
-  const user = useSelector((state) => state.user.user.user);
+  const user = useSelector((state) => state.user.currentUser.name);
+
   const messageAuthor = data.role === "user" ? "sender" : "reciever";
 
   return (
@@ -55,7 +57,7 @@ const MiMessage = ({ data }) => {
         >
           {data.content}
           <Text
-            as={"spam"}
+            as={"span"}
             color={"black"}
             p={4}
             fontSize={"10px"}

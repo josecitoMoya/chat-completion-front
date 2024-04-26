@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Button,
   InputRightElement,
@@ -18,7 +20,7 @@ import { useState } from "react";
 import MiButton from "@/common/MyButton";
 
 import { useInput } from "@/hooks/useInput";
-import { createUser } from "@/store/thunks/user.thunk";
+import { createUser } from "@/services/signup.services";
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -35,35 +37,32 @@ export default function Signup() {
     try {
       e.preventDefault();
 
-      const newUser = {
+      const userData = {
         name: name.value,
         email: email.value,
         password: password.value,
       };
 
-      dispatch(createUser(newUser))
-        .then((res) => res.data)
-        .then((res) => {
-          if (res.name) {
-            toast({
-              position: "top",
-              title: res.message,
-              status: "success",
-              isClosable: true,
-              duration: 3000,
-            });
-            router.push("/login");
-          } else {
-            toast({
-              position: "top",
-              title: res.message,
-              status: "error",
-              isClosable: true,
-              duration: 3000,
-            });
-          }
-        })
-        .catch((err) => console.error(err));
+      const newUser = await createUser(userData);
+
+      if (newUser.name) {
+        toast({
+          position: "top",
+          title: newUser.message,
+          status: "success",
+          isClosable: true,
+          duration: 3000,
+        });
+        router.push("/login");
+      } else {
+        toast({
+          position: "top",
+          title: newUser.message,
+          status: "error",
+          isClosable: true,
+          duration: 3000,
+        });
+      }
     } catch (error) {
       console.error(error);
     }

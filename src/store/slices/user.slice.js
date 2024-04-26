@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: {},
-  users: [],
+  currentUser: {},
+  userMessages: null,
   isLoading: false,
   error: null,
 };
@@ -11,11 +11,11 @@ const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload;
+    setCurrenttUser: (state, action) => {
+      state.currentUser = action.payload;
     },
-    setUsers: (state, action) => {
-      state.users = action.payload;
+    setUserMessages: (state, action) => {
+      state.userMessages = action.payload;
     },
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -26,6 +26,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setUsers, setIsLoading, setError } = userSlice.actions;
+export const { setUserMessages, setCurrenttUser, setIsLoading, setError } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,10 +1,11 @@
-import { deleteCookies } from "../config/middleware/auth.js";
-import { generateToken } from "../config/token/tokens.js";
+import { generateToken, validateToken } from "../config/token/tokens.js";
 import userServices from "../services/user.services.js";
 
 export const createUser = async (req, res) => {
   try {
     const userData = req.body;
+
+    console.log("ESTO LLEGA DEL FRONT A CONTROLLER", userData);
 
     const findedUser = await userServices.findUserByEmail(userData.email);
 
@@ -13,6 +14,10 @@ export const createUser = async (req, res) => {
     }
 
     const newUser = await userServices.createUser(userData);
+
+    const token = generateToken(newUser);
+
+    console.log("SOY EL TOKEN DEL NUEVO USUARIO", token);
 
     res.send(newUser);
   } catch (error) {
@@ -38,19 +43,9 @@ export const userLogin = async (req, res) => {
 
     const token = generateToken(user);
 
-    res.cookie("gptToken", token).send({
-      message: `Wellcome back ${user.name}`,
-      user: user.name,
-      data: user.messages,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+    const response = { user: user.name, email: user.email };
 
-export const userLogout = async (req, res) => {
-  try {
-    deleteCookies();
+    res.cookie("gptToken", token).send(response);
   } catch (error) {
     console.error(error);
   }
