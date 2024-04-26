@@ -7,7 +7,7 @@ export const persistence = async () => {
   try {
     const { NEXT_PUBLIC_FETCHURL } = process.env;
 
-    const user = await axios.get(`${NEXT_PUBLIC_FETCHURL}/user/persistence`, {
+    const user = await axios.get(`${NEXT_PUBLIC_FETCHURL}user/persistence`, {
       withCredentials: true,
     });
 

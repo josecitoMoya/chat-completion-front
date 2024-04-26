@@ -5,13 +5,9 @@ import "dotenv/config";
 const { NEXT_PUBLIC_FETCHURL } = process.env;
 
 export const login = async (data) => {
-  const response = await axios.post(
-    `${NEXT_PUBLIC_FETCHURL}/user/login`,
-    data,
-    {
-      withCredentials: true,
-    }
-  );
+  const response = await axios.post(`${NEXT_PUBLIC_FETCHURL}user/login`, data, {
+    withCredentials: true,
+  });
 
   const user = response.data;
 
