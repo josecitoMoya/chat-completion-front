@@ -51,7 +51,7 @@ export const userLogout = async (req, res) => {
   try {
     await res.clearCookie("gptToken");
 
-    await res.status(204).send("User logged ouy successfuly");
+    await res.send("User logged out successfuly");
   } catch (error) {
     console.error(error);
   }

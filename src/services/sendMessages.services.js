@@ -6,7 +6,7 @@ export const sendMessage = async (messageData) => {
   try {
     const messageSent = await axios.post(
       `${fetchUrl}/chat/send-message`,
-      data,
+      messageData,
       { withCredentials: true }
     );
 
