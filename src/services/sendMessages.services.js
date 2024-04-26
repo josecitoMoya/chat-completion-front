@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const fetchUrl = "http://localhost:3001/api";
+const { NEXT_PUBLIC_FETCHURL } = process.env;
 
 export const sendMessage = async (messageData) => {
   try {
     const messageSent = await axios.post(
-      `${fetchUrl}/chat/send-message`,
+      `${NEXT_PUBLIC_FETCHURL}/chat/send-message`,
       messageData,
       { withCredentials: true }
     );
