@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { RiSendPlaneFill } from "react-icons/ri";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +26,7 @@ import { useInput } from "@/hooks/useInput";
 import { setMessage } from "@/store/slices/messages.slice";
 import { persistence } from "@/services/persistence.service";
 import { setCurrenttUser, setUserMessages } from "@/store/slices/user.slice";
-import { getMessages } from "@/services/sendMessages.services";
+import { getMessages, sendMessage } from "@/services/sendMessages.services";
 import { logout } from "@/services/logout.service";
 
 const Chat = () => {
@@ -35,8 +35,10 @@ const Chat = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const input = useInput();
+  const mensajesRef = useRef(null);
 
-  // const [mensajes, setMensajes] = useState([]);
+  const [mensajes, setMensajes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     try {
@@ -44,13 +46,27 @@ const Chat = () => {
         if (!token) return router.push("/login");
 
         dispatch(setCurrenttUser(token.user));
-        dispatch(setUserMessages(token.messages));
+        setMensajes(token.messages);
       });
     } catch (error) {}
+  }, [messages]);
+
+  useEffect(() => {
+    if (mensajesRef.current) {
+      mensajesRef.current.scrollTop = mensajesRef.current.scrollHeight;
+    }
+  }, [mensajes]);
+
+  useEffect(() => {
+    if (mensajesRef.current) {
+      mensajesRef.current.scrollTop = mensajesRef.current.scrollHeight;
+    }
   }, []);
 
   const messageSender = async (e) => {
     try {
+      setIsLoading(true);
+
       e.preventDefault();
 
       const delivery = {
@@ -58,16 +74,24 @@ const Chat = () => {
         email: user.email,
       };
 
-      sen;
+      const messageSent = await sendMessage(delivery);
+
+      input.setValue("");
+
+      dispatch(setUserMessages(messageSent));
+
+      setIsLoading(false);
+
+      input.value("");
     } catch (err) {
       console.error;
     }
   };
 
   const handleLogout = async () => {
-    const closeSesion = await logout();
+    await logout();
 
-    router.push("/");
+    router.push("/login");
   };
 
   return (
@@ -104,10 +128,13 @@ const Chat = () => {
         flex={1}
         overflow={"scroll"}
         className="invisible"
+        ref={mensajesRef}
       >
-        {messages?.map((data, i) => (
-          <MiMessage data={data} key={i} />
-        ))}
+        {!isLoading ? (
+          mensajes?.map((data, i) => <MiMessage data={data} key={i} />)
+        ) : (
+          <Text>Loading</Text>
+        )}
       </Box>
       <FormControl
         p={2}

@@ -123,7 +123,7 @@ export default function Login() {
                 onClick={handleSubmit}
               />
               <Text fontSize={"sm"} textAlign={"center"}>
-                I don't hace an account
+                I don't have an account
               </Text>
               <MiButton
                 placeholder="Signup"
