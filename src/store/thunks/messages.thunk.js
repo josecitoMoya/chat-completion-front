@@ -27,7 +27,6 @@ export const getMessages = () => async (dispatch) => {
 };
 
 export const sendMessage = (data) => async (dispatch) => {
-  console.log("SIY DATA DE SEND", data);
   try {
     dispatch(setIsLoading(true));
 

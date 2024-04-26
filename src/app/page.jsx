@@ -16,7 +16,6 @@ export default function Home() {
     persistence().then((token) => {
       if (!token.user.name) return router.push("/login");
       dispatch(setCurrenttUser(token));
-      console.log(token);
       return router.push("/chat");
     });
   }, []);

@@ -5,8 +5,6 @@ export const createUser = async (req, res) => {
   try {
     const userData = req.body;
 
-    console.log("ESTO LLEGA DEL FRONT A CONTROLLER", userData);
-
     const findedUser = await userServices.findUserByEmail(userData.email);
 
     if (findedUser) {
@@ -16,8 +14,6 @@ export const createUser = async (req, res) => {
     const newUser = await userServices.createUser(userData);
 
     const token = generateToken(newUser);
-
-    console.log("SOY EL TOKEN DEL NUEVO USUARIO", token);
 
     res.send(newUser);
   } catch (error) {
@@ -46,6 +42,16 @@ export const userLogin = async (req, res) => {
     const response = { user: user.name, email: user.email };
 
     res.cookie("gptToken", token).send(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const userLogout = async (req, res) => {
+  try {
+    await res.clearCookie("gptToken");
+
+    await res.status(204).send("User logged ouy successfuly");
   } catch (error) {
     console.error(error);
   }

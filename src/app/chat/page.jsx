@@ -64,17 +64,11 @@ const Chat = () => {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-
-    dispatch(setCurrenttUser(null));
+  const handleLogout = async () => {
+    const closeSesion = await logout();
 
     router.push("/");
   };
-
-  // if (!user.user) {
-  //   router.push("/");
-  // }
 
   return (
     <Box
