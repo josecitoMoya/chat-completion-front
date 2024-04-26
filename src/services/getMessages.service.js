@@ -12,17 +12,3 @@ export const getMessages = async () => {
     console.error(error);
   }
 };
-
-export const sendMessage = async (messageData) => {
-  try {
-    const messageSent = await axios.post(
-      `${fetchUrl}/chat/send-message`,
-      data,
-      { withCredentials: true }
-    );
-
-    return messageSent;
-  } catch (error) {
-    console.error(error);
-  }
-};

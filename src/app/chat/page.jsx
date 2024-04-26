@@ -26,15 +26,17 @@ import { useInput } from "@/hooks/useInput";
 import { setMessage } from "@/store/slices/messages.slice";
 import { persistence } from "@/services/persistence.service";
 import { setCurrenttUser, setUserMessages } from "@/store/slices/user.slice";
-import { getMessages } from "@/services/messages.services";
+import { getMessages } from "@/services/sendMessages.services";
 import { logout } from "@/services/logout.service";
 
 const Chat = () => {
-  const user = useSelector((state) => state.user.currentUser?.name);
+  const user = useSelector((state) => state.user.currentUser);
   const messages = useSelector((state) => state.user?.userMessages);
   const dispatch = useDispatch();
   const router = useRouter();
   const input = useInput();
+
+  // const [mensajes, setMensajes] = useState([]);
 
   useEffect(() => {
     try {
@@ -56,9 +58,7 @@ const Chat = () => {
         email: user.email,
       };
 
-      const rta = dispatch(sendMessage(delivery)).then((res) =>
-        dispatch(setMessage(res.data)).then(() => router.push("/chat"))
-      );
+      sen;
     } catch (err) {
       console.error;
     }
@@ -87,14 +87,14 @@ const Chat = () => {
         borderBottom={"1px solid"}
         transitionDuration={"200ms"}
       >
-        <Avatar name={user} />
+        <Avatar name={user.name} />
         <Box ml={4} flex={1}>
           <Heading as={"h3"} size={"lg"} />
           <Button onClick={handleLogout}>Cerrar Sesion</Button>
         </Box>
         <Box ml={4} flex={1}>
           <Heading as={"h3"} size={"lg"} />
-          <Text>{user}</Text>
+          <Text>{user.name}</Text>
         </Box>
       </Flex>
       <Box
@@ -117,7 +117,12 @@ const Chat = () => {
         alignItems={"center"}
       >
         <InputGroup size="md">
-          <Input position={"sticky"} bottom={0} {...input} />
+          <Input
+            position={"sticky"}
+            bottom={0}
+            {...input}
+            placeholder="Write rigth here!"
+          />
           <InputRightElement width="4.5rem">
             <IconButton
               ml={2}

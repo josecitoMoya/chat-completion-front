@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getMessages } from "./messages.services";
+import { getMessages } from "./getMessages.service";
 
 export const persistence = async () => {
   try {
