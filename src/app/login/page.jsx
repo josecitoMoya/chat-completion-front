@@ -73,66 +73,64 @@ export default function Login() {
 
   return (
     <Box>
-      <Center h="75%" color="white" marginTop="5%" padding="10">
+      <Center
+        color="white"
+        marginTop={{ base: "10%", md: "5%" }}
+        padding={{ base: "5%", md: "10%" }}
+      >
         <Box
-          width="50"
+          maxW={{ base: "100%", md: "50%" }} // Ancho máximo del contenedor
           borderWidth="3px"
           borderRadius="lg"
-          display="inline-block"
-          padding="50px"
-          alignItems="center"
-          justifyContent="center"
-          color="black"
-          fontWeight="semibold"
-          letterSpacing="wide"
-          fontSize="2xl"
-          textTransform="uppercase"
+          padding={{ base: "5%", md: "10%" }} // Espaciado interno
+          textAlign="center"
         >
-          <Text fontSize="4xl" textAlign="center">
+          <Text
+            fontSize={{ base: "2xl", md: "4xl" }}
+            fontWeight="semibold"
+            textTransform="uppercase"
+          >
             Login
           </Text>
 
           <FormControl padding="30px" onSubmit={handleSubmit}>
-            <Stack spacing="5">
-              <InputGroup size="md">
+            <Stack
+              spacing="5"
+              direction={{ base: "column", md: "row" }}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <InputGroup size="md" flexDirection={"column"}>
                 <Input
-                  {...email}
-                  placeholder="email"
+                  placeholder="Email"
                   type="email"
                   backgroundColor="white"
-                  width="100%"
+                  width={{ base: "100%", md: "auto" }}
+                  mb={{ base: 4, md: 0 }}
                   required={true}
                 />
 
                 <Input
-                  {...password}
                   pr="4.5rem"
-                  type={show ? "text" : "password"}
+                  type="password"
                   placeholder="Enter password"
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
-                    {show ? "Hide" : "Show"}
+                    Show
                   </Button>
                 </InputRightElement>
               </InputGroup>
 
-              <MiButton
-                type="submit"
-                placeholder="Login"
-                onClick={handleSubmit}
-              />
-              <Text fontSize={"sm"} textAlign={"center"}>
-                I don't have an account
-              </Text>
-              <MiButton
-                placeholder="Signup"
-                onClick={() => {
-                  router.push("signup");
-                }}
-              />
+              <Button type="submit" variant="solid" colorScheme="blue">
+                Login
+              </Button>
             </Stack>
           </FormControl>
+          <Text fontSize={"sm"}>I don't have an account</Text>
+          <Button variant="link" onClick={() => {}}>
+            Signup
+          </Button>
         </Box>
       </Center>
     </Box>
