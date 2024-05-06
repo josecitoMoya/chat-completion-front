@@ -64,4 +64,4 @@ Proximos pasos para mejorar la app:
 2. Modificar el comportamiento para aprovechar las bondades de la SDK de vercel
 3. Deploy!
 
-##Muchas gracias!!!!
+## Muchas gracias!!!!
