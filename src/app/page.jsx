@@ -14,7 +14,7 @@ export default function Home() {
 
   useEffect(() => {
     persistence().then((token) => {
-      if (!token.user.name) return router.push("/login");
+      if (!token?.user.name) return router.push("/login");
       dispatch(setCurrenttUser(token));
       return router.push("/chat");
     });
