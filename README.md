@@ -1,4 +1,4 @@
-Proyecto de Chat con GPT-3.5
+# Proyecto de Chat con GPT-3.5
 
 Este proyecto es el resultado de un desafío que involucró la integración de la API de OpenAI para utilizar la versión 3.5 de ChatGPT en una aplicación web. Permite a los usuarios interactuar con un modelo de lenguaje avanzado para mantener conversaciones naturales y dinámicas.
 
@@ -18,20 +18,20 @@ Interfaz de Usuario Responsiva: Diseño moderno y receptivo utilizando Chakra UI
 2 - Instala las dependencias del proyecto ejecutando npm install. (use node v20.12.2 - npm install)
 3 - Crea un archivo .env en la raíz del proyecto y agrega las siguientes variables de entorno:
 
-# DB Configuration
+// DB Configuration
 
 DB_URL= Aqui deberian ingresar la URL para conectar su propio mongo compass
 
-# Chat gpt parameters
+// Chat gpt parameters
 
 GPT_API_KEY= Aqui deberian colocar su propia API KEY de OpenAi
 GPT_ORGANIZATION= Aqui deberian colocar su propia organizacion de OpenAi
 
-#Authentication secrets
+// Authentication secrets
 JWT_SECRET="Agueda" (puedes cambiarlo por la palabra secreta que desees)
 JWT_EXPIRATION=1h (puedes cambiarlo por el tiempo que desees)
 
-# Server port
+// Server port
 
 SERVER_PORT=3001
 
