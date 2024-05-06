@@ -11,9 +11,11 @@ Este proyecto es el resultado de un desafío que involucró la integración de l
 
 ## Funcionalidades Principales
 
+
 - **Integración con OpenAI**: Accede a la API de OpenAI para utilizar la versión 3.5 de ChatGPT y permitir conversaciones con inteligencia artificial.
 - **Persistencia de Conversaciones**: Utiliza MongoDB para almacenar conversaciones de usuario y permitir que los usuarios retomen sus conversaciones anteriores.
 - **Interfaz de Usuario Responsiva**: Diseño moderno y receptivo utilizando Chakra UI para una experiencia de usuario óptima en diferentes dispositivos.
+
 
 ## Instalación
 
@@ -21,14 +23,17 @@ Este proyecto es el resultado de un desafío que involucró la integración de l
 2. Instala las dependencias del proyecto ejecutando `npm install`.
 3. Crea un archivo `.env` en la raíz del proyecto y agrega las siguientes variables de entorno:
 
+
 // DB Configuration
 DB_URL= Aqui deberian ingresar la URL para conectar su propio mongo compass
+
 
 // Chat gpt parameters
 GPT_API_KEY= Aqui deberian colocar su propia API KEY de OpenAi
 GPT_ORGANIZATION= Aqui deberian colocar su propia organizacion de OpenAi
 
-//Authentication secrets
+
+// Authentication secrets
 JWT_SECRET="Agueda" (puedes cambiarlo por la palabra secreta que desees)
 JWT_EXPIRATION=1h (puedes cambiarlo por el tiempo que desees)
 
