@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Proyecto de Chat con GPT-3.5
 
-## Getting Started
+Este proyecto es el resultado de un desafío que involucró la integración de la API de OpenAI para utilizar la versión 3.5 de ChatGPT en una aplicación web. Permite a los usuarios interactuar con un modelo de lenguaje avanzado para mantener conversaciones naturales y dinámicas.
 
-First, run the development server:
+=> Tecnologías Utilizadas
+Next.js 14: Framework de React para aplicaciones web modernas.
+Chakra UI: Biblioteca de componentes de interfaz de usuario para React.
+MongoDB: Base de datos NoSQL utilizada para almacenar conversaciones y datos de usuario.
+JavaScript: Lenguaje de programación principal utilizado en el desarrollo del proyecto.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+=> Funcionalidades Principales
+Integración con OpenAI: Accede a la API de OpenAI para utilizar la versión 3.5 de ChatGPT y permitir conversaciones con inteligencia artificial.
+Persistencia de Conversaciones: Utiliza MongoDB para almacenar conversaciones de usuario y permitir que los usuarios retomen sus conversaciones anteriores.
+Interfaz de Usuario Responsiva: Diseño moderno y receptivo utilizando Chakra UI para una experiencia de usuario óptima en diferentes dispositivos.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+=> Instalación
+1 - Clona este repositorio en tu máquina local. (git clone url)
+2 - Instala las dependencias del proyecto ejecutando npm install. (use node v20.12.2 - npm install)
+3 - Crea un archivo .env en la raíz del proyecto y agrega las siguientes variables de entorno:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# DB Configuration
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+DB_URL= Aqui deberian ingresar la URL para conectar su propio mongo compass
 
-## Learn More
+# Chat gpt parameters
 
-To learn more about Next.js, take a look at the following resources:
+GPT_API_KEY= Aqui deberian colocar su propia API KEY de OpenAi
+GPT_ORGANIZATION= Aqui deberian colocar su propia organizacion de OpenAi
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#Authentication secrets
+JWT_SECRET="Agueda" (puedes cambiarlo por la palabra secreta que desees)
+JWT_EXPIRATION=1h (puedes cambiarlo por el tiempo que desees)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Server port
 
-## Deploy on Vercel
+SERVER_PORT=3001
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#Url Front
+NEXT_PUBLIC_FETCHURL= Aqui deberian colocar tu direccion local para enviar las consultas al back
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#CORS
+CORS=http://localhost:3000
+
+4 - Ejecuta el proyecto localmente con npm run dev para el frontend y npm start para el backend.
+
+=> Contribución
+¡Las contribuciones son bienvenidas! Si deseas contribuir a este proyecto, asegúrate de seguir las pautas de contribución y enviar tus solicitudes de extracción.
+
+=> Contacto
+Para cualquier pregunta o sugerencia, no dudes en ponerte en contacto conmigo a través de mi correo electrónico jose_moya@live.com.ar.
+
+=> Proyecciones:
+Proximos pasos para mejorar la app:
+
+1 - Dockerizarla
+2 - Modificar el comportamiento para aprovechar las bondades de la SDK de vercel
+3 - Deploy!
+
+Muchas gracias!!!!
