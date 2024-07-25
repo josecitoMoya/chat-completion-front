@@ -7,9 +7,13 @@ export const persistence = async () => {
   try {
     const { NEXT_PUBLIC_FETCHURL } = process.env;
 
-    const user = await axios.get(`http://localhost:3001/api/user/persistence`, {
-      withCredentials: true,
-    });
+    const user = await axios.get(
+      // `http://localhost:3001/api/user/persistence`,
+      `${NEXT_PUBLIC_FETCHURL}/api/user/persistence`,
+      {
+        withCredentials: true,
+      }
+    );
 
     const messages = await getMessages();
 

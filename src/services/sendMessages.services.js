@@ -5,7 +5,8 @@ const { NEXT_PUBLIC_FETCHURL } = process.env;
 export const sendMessage = async (messageData) => {
   try {
     const messageSent = await axios.post(
-      `http://localhost:3001/api/chat/send-message`,
+      // `http://localhost:3001/api/chat/send-message`,
+      `${NEXT_PUBLIC_FETCHURL}/api/chat/send-message`,
       messageData,
       { withCredentials: true }
     );
