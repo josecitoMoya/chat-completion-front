@@ -6,7 +6,8 @@ const { NEXT_PUBLIC_FETCHURL } = process.env;
 
 export const login = async (data) => {
   const response = await axios.post(
-    `http://localhost:3001/api/user/login`,
+    // `http://localhost:3001/api/user/login`,
+    NEXT_PUBLIC_FETCHURL,
     data,
     {
       withCredentials: true,
