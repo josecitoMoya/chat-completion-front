@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const { NEXT_PUBLIC_FETCHURL } = process.env;
+import { NEXT_PUBLIC_FETCHURL } from "@/config/config.js";
 
 export const sendMessage = async (messageData) => {
   try {

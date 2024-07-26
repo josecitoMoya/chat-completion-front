@@ -1,12 +1,10 @@
 import axios from "axios";
 import { getMessages } from "./getMessages.service";
 
-import "dotenv/config";
+import { NEXT_PUBLIC_FETCHURL } from "@/config/config.js";
 
 export const persistence = async () => {
   try {
-    const { NEXT_PUBLIC_FETCHURL } = process.env;
-
     const user = await axios.get(
       // `http://localhost:3001/api/user/persistence`,
       `${NEXT_PUBLIC_FETCHURL}/api/user/persistence`,

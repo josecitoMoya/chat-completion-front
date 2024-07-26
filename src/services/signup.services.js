@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const { NEXT_PUBLIC_FETCHURL } = process.env;
+import { NEXT_PUBLIC_FETCHURL } from "@/config/config.js";
 
 export const createUser = async (data) => {
   try {
     const newUser = await axios.post(
-      `${NEXT_PUBLIC_FETCHURL}user/signup`,
+      `${NEXT_PUBLIC_FETCHURL}/api/user/signup`,
       // "http://localhost:3001/api/user/signup",
       data,
       {
